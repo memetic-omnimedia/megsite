@@ -1,19 +1,37 @@
 {
-  "artistName": "TODO_ARTIST_NAME",
+  "artistName": "Meggie is Dreaming",
   "tagline": "",
   "slides": [
     {
       "slug": "dj-table",
-      "video": { "src1080": "media/meg-1080.mp4", "src720": "media/meg-720.mp4", "poster": "media/poster.jpg" },
+      "video": {
+        "src1080": "media/meg-1080.mp4",
+        "src720": "media/meg-720.mp4",
+        "poster": "media/poster.jpg"
+      },
       "fit": "cover"
     }
   ],
   "bio": {
-    "paragraphs": ["TODO: bio text from Meg"],
-    "photos": ["meg3.jpg", "meg1.jpg", "meg2.jpg"]
+    "paragraphs": [
+      "Meggie is Dreaming is a multidisciplinary artist, musician, and DJ born and raised in Grand Rapids, Michigan. Growing up as one of seven siblings, Meggie was introduced to music early on when each sibling was encouraged to choose an instrument. They chose the violin, laying the foundation for a creative practice that would eventually expand into DJing, songwriting, performance, and visual storytelling.",
+      "Inspired by artists like Lorde and FKA twigs, as well as the creativity of their musical peers, Meggie creates work that blends a sense of gentleness, experimentation, and a sense of dreamlike exploration. They are the bandleader of girls&them, a collective through which they continue to explore music, collaboration, and live performance all while channeling a sense of community.",
+      "Meggie has performed at Mixed Grounds and This November’s September Event, an art auction showcasing local creative talent. They are currently expanding their artistic world into film, working on a short film featuring four original songs.",
+      "Through music and visual storytelling, Meggie is Dreaming invites audiences into a realm where creativity, sound, emotion, and imagination flow."
+    ],
+    "photos": [
+      "meg3.jpg",
+      "meg1.jpg",
+      "meg2.jpg"
+    ]
   },
   "albums": [
-    { "title": "TODO", "year": "", "cover": "", "url": "" }
+    {
+      "title": "TODO",
+      "year": "",
+      "cover": "",
+      "url": ""
+    }
   ],
   "events": [
     {
@@ -25,6 +43,8 @@
       "url": ""
     }
   ],
-  "contact": { "email": "megparlmer@gmail.com" },
+  "contact": {
+    "email": "megparlmer@gmail.com"
+  },
   "audio": null
 }

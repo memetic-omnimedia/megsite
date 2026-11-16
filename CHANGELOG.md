@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2026-11-15)
+
+- Content: artist name set to "Meggie is Dreaming"; bio paragraphs added from Meg's "Artist Bio" PDF
+  (verbatim). Page title, meta description, share card and `<noscript>` pick these up automatically.
+- Meta description now trims to a whole word with an ellipsis instead of cutting mid-word.
+- Overlays: the HUD (name, menu, clock) fades out while a panel is open so it no longer shows
+  through; initial focus goes to the close button instead of the scrollable panel.
+- Bio text set slightly smaller with a max line length for the longer copy.
+
 ## 0.1.0 (2026-11-15)
 
 Initial site.

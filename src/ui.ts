@@ -191,7 +191,7 @@ function buildOverlay(s: Section): HTMLDialogElement {
     <div class="overlay__panel">
       <header class="overlay__head">
         <h2 class="overlay__title label" id="ov-${s.id}-title">${s.label}</h2>
-        <button type="button" class="overlay__close" aria-label="Close ${s.label}"><span aria-hidden="true">✕</span></button>
+        <button type="button" class="overlay__close" aria-label="Close ${s.label}" autofocus><span aria-hidden="true">✕</span></button>
       </header>
       <div class="overlay__body">${s.render()}</div>
     </div>`;

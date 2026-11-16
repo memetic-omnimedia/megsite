@@ -162,6 +162,13 @@ button {
 }
 
 .hud {
+  transition: opacity 0.5s ease;
+}
+/* The HUD (big name, menu) would otherwise show through the translucent panel. */
+html.has-overlay .hud {
+  opacity: 0;
+}
+.hud {
   position: fixed;
   left: 0;
   right: 0;
@@ -401,8 +408,9 @@ button {
 .bio__text {
   grid-area: text;
   font-family: var(--serif);
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
-  line-height: 1.35;
+  font-size: clamp(1.2rem, 1.55vw, 1.4rem);
+  line-height: 1.4;
+  max-width: 38em;
 }
 .bio__text p {
   margin: 0 0 1em;

@@ -18,6 +18,8 @@ const SITE_URL = (process.env.SITE_URL ?? `https://memetic-omnimedia.github.io/$
 const CONTENT_PATH = new URL('./src/content.json', import.meta.url);
 
 const isFilled = (v: unknown): v is string => typeof v === 'string' && v.trim() !== '' && !/TODO/.test(v);
+/** Trim to the last whole word under `max` chars, for meta descriptions. */
+const clip = (s: string, max: number) => (s.length <= max ? s : s.slice(0, s.lastIndexOf(' ', max - 1)).replace(/[,;:]$/, '') + '…');
 const esc = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
@@ -53,7 +55,7 @@ function siteContent(): Plugin {
         const paragraphs: string[] = (c.bio?.paragraphs ?? []).filter(isFilled);
         const description = isFilled(c.tagline)
           ? c.tagline
-          : paragraphs[0]?.slice(0, 155) ?? `${name}: DJ and artist. Music, upcoming shows and contact.`;
+          : (paragraphs[0] && clip(paragraphs[0], 155)) ?? `${name}: DJ and artist. Music, upcoming shows and contact.`;
         const ogImage = `${SITE_URL}og.jpg`;
         const head = `
     <title>${esc(name)}</title>
