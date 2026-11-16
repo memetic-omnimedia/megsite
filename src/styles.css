@@ -235,14 +235,15 @@ html.has-overlay .hud {
   transform-origin: left;
 }
 
+/* Quiet, in the same voice as the menu labels: small uppercase sans with wide tracking. */
 .artist {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
-  font-size: clamp(3.4rem, 10.5vw, 10rem);
-  line-height: 0.86;
-  letter-spacing: -0.01em;
-  max-width: 12ch;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
 }
 
 .meta {

@@ -93,7 +93,10 @@ function siteContent(): Plugin {
   };
 }
 
-/** Preload the two self-hosted woff2 files that the stylesheet actually uses. */
+/**
+ * Preload the UI text face, which is visible on first paint. The serif display face is only used
+ * inside the overlays, so it loads on demand instead of competing with the poster.
+ */
 function preloadFonts(): Plugin {
   return {
     name: 'preload-fonts',
@@ -102,7 +105,7 @@ function preloadFonts(): Plugin {
       order: 'post',
       handler(_html, ctx) {
         const fonts = Object.keys(ctx.bundle ?? {}).filter((f) =>
-          /(instrument-serif-latin-400-normal|hanken-grotesk-latin-400-normal).*\.woff2$/.test(f),
+          /hanken-grotesk-latin-400-normal.*\.woff2$/.test(f),
         );
         return fonts.map((f) => ({
           tag: 'link',

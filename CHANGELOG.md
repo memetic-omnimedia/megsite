@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 (2026-11-15)
+
+- Artist name restyled to match the menu labels (small uppercase Hanken Grotesk, wide tracking)
+  instead of the large serif display, so the video stays the focus.
+- Only the UI text font is preloaded now; the serif (used only inside overlays) loads on demand.
+
 ## 0.2.0 (2026-11-15)
 
 - Content: artist name set to "Meggie is Dreaming"; bio paragraphs added from Meg's "Artist Bio" PDF
