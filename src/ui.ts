@@ -345,6 +345,37 @@ function startClock() {
   tick();
 }
 
+/**
+ * "Meggie is Dreaming" → MEGGIE (spaced uppercase label) + "is dreaming" (softer lowercase, same face).
+ * Letters are wrapped individually for the wake-up animation; screen readers get the plain name.
+ */
+function renderArtist(el: HTMLElement) {
+  const name = content.artistName;
+  if (!filled(name)) {
+    el.innerHTML = text(name, 'artistName');
+    if (!DEV) el.classList.add('sr-only'), (el.textContent = 'Meg');
+    el.classList.add('is-split');
+    return;
+  }
+  const letters = (str: string) =>
+    [...str].map((ch) => (ch === ' ' ? ' ' : `<span class="artist__ch">${esc(ch)}</span>`)).join('');
+  const [first, ...rest] = name.trim().split(/\s+/);
+  el.innerHTML =
+    `<span class="sr-only">${esc(name)}</span>` +
+    `<span class="artist__vis" aria-hidden="true"><span class="artist__lead">${letters(first)}</span>` +
+    (rest.length ? ` <span class="artist__rest">${letters(rest.join(' '))}</span>` : '') +
+    `</span>`;
+  el.classList.add('is-split');
+  if (!reduced) {
+    // Wake up: each letter resolves out of a soft blur, one after another, then the name starts breathing (CSS).
+    gsap.fromTo(
+      el.querySelectorAll('.artist__ch'),
+      { autoAlpha: 0, filter: 'blur(7px)' },
+      { autoAlpha: 1, filter: 'blur(0px)', duration: 1.8, ease: 'power2.out', stagger: 0.075, delay: 0.7, clearProps: 'filter' },
+    );
+  }
+}
+
 function setupAudio() {
   const src = content.audio && filled(content.audio.src) ? content.audio.src : null;
   if (!src) return;
@@ -368,9 +399,7 @@ export function initUI(opts: { reducedMotion: boolean }) {
   reduced = opts.reducedMotion;
   sectionList = sections();
 
-  const artist = document.getElementById('artist')!;
-  artist.innerHTML = text(content.artistName, 'artistName');
-  if (!filled(content.artistName) && !DEV) artist.classList.add('sr-only'), (artist.textContent = 'Meg');
+  renderArtist(document.getElementById('artist')!);
   const tagline = document.getElementById('tagline')!;
   tagline.innerHTML = text(content.tagline, 'tagline (optional)');
 
@@ -385,6 +414,6 @@ export function initUI(opts: { reducedMotion: boolean }) {
   setupAudio();
 
   if (!reduced) {
-    gsap.from('.hud > *, .meta > *', { autoAlpha: 0, y: 14, duration: 1.4, ease: 'power3.out', stagger: 0.08, delay: 0.25 });
+    gsap.from('.hud--top > *, .meta > *', { autoAlpha: 0, y: 14, duration: 1.4, ease: 'power3.out', stagger: 0.08, delay: 0.25 });
   }
 }

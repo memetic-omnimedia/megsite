@@ -235,15 +235,57 @@ html.has-overlay .hud {
   transform-origin: left;
 }
 
-/* Quiet, in the same voice as the menu labels: small uppercase sans with wide tracking. */
+/*
+ * Artist name in two voices of the same face: MEGGIE as a quiet spaced uppercase label, then
+ * "is dreaming" in softer, lower-contrast lowercase, like a half-spoken aside.
+ */
 .artist {
   margin: 0;
   font-family: var(--sans);
   font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+}
+.js .artist:not(.is-split) {
+  visibility: hidden; /* avoid a flash of the plain name before the letters are split */
+}
+.artist__vis {
+  display: inline-block;
+  animation: breathe-glow 11s ease-in-out 3.6s infinite;
+}
+.artist__ch {
+  display: inline-block;
+}
+.artist__lead {
+  font-family: var(--sans);
   font-size: 0.8rem;
-  line-height: 1.4;
   letter-spacing: 0.32em;
   text-transform: uppercase;
+  animation: breathe-wide 11s ease-in-out 3.6s infinite;
+}
+.artist__rest {
+  margin-left: 0.2em;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--ink-soft);
+  animation: breathe-soft 11s ease-in-out 3.6s infinite;
+}
+/* Breathing: tracking opens and settles, brightness dips slightly, on a slow ~11s cycle. */
+@keyframes breathe-wide {
+  50% {
+    letter-spacing: 0.42em;
+  }
+}
+@keyframes breathe-soft {
+  50% {
+    letter-spacing: 0.12em;
+  }
+}
+@keyframes breathe-glow {
+  50% {
+    opacity: 0.74;
+  }
 }
 
 .meta {
@@ -262,6 +304,7 @@ html.has-overlay .hud {
 .clock__sep {
   opacity: 0.6;
 }
+
 .slides-nav {
   list-style: none;
   margin: 0;
@@ -641,6 +684,11 @@ html.has-overlay .hud {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .artist__vis,
+  .artist__lead,
+  .artist__rest {
+    animation: none !important;
+  }
   *,
   *::before,
   *::after {

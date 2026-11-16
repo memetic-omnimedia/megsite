@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2026-11-15)
+
+- Artist name split into two voices of the same face: the first word as a quiet spaced uppercase label
+  ("MEGGIE"), the rest as softer lowercase ("is dreaming"). Screen readers still get the plain name.
+- Wake-up intro: each letter of the name resolves out of a soft blur, one after another, on load.
+- Breathing: the name's tracking slowly opens and settles while its brightness dips slightly (~11s cycle).
+- All new motion is disabled for reduced-motion users.
+
 ## 0.3.0 (2026-11-15)
 
 - Artist name restyled to match the menu labels (small uppercase Hanken Grotesk, wide tracking)
