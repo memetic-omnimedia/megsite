@@ -1,0 +1,30 @@
+{
+  "artistName": "TODO_ARTIST_NAME",
+  "tagline": "",
+  "slides": [
+    {
+      "slug": "dj-table",
+      "video": { "src1080": "media/meg-1080.mp4", "src720": "media/meg-720.mp4", "poster": "media/poster.jpg" },
+      "fit": "cover"
+    }
+  ],
+  "bio": {
+    "paragraphs": ["TODO: bio text from Meg"],
+    "photos": ["meg3.jpg", "meg1.jpg", "meg2.jpg"]
+  },
+  "albums": [
+    { "title": "TODO", "year": "", "cover": "", "url": "" }
+  ],
+  "events": [
+    {
+      "title": "DJ set at This November",
+      "subtitle": "Art showcase",
+      "date": "TODO_ISO_DATETIME",
+      "venue": "TODO",
+      "city": "TODO",
+      "url": ""
+    }
+  ],
+  "contact": { "email": "megparlmer@gmail.com" },
+  "audio": null
+}
