@@ -28,7 +28,10 @@
       <h1 class="artist" id="artist"><!--artist--></h1>
       <div class="meta">
         <ul class="slides-nav" id="slides-nav" aria-label="Videos" hidden></ul>
-        <button type="button" class="ui-btn" id="unmute" aria-pressed="false" hidden>Unmute</button>
+        <div class="sound">
+          <p class="now-playing" id="now-playing" hidden><span class="now-playing__label">Now playing</span> <span class="now-playing__title"></span></p>
+          <button type="button" class="ui-btn" id="unmute" aria-pressed="false" hidden>Unmute</button>
+        </div>
         <p class="clock">
           <span class="sr-only">Local time: </span><span id="clock-time"></span><span class="clock__sep clock__date-sep" aria-hidden="true"> · </span><span id="clock-date"></span>
         </p>

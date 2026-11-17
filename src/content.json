@@ -46,5 +46,8 @@
   "contact": {
     "email": "megparlmer@gmail.com"
   },
-  "audio": null
+  "audio": {
+    "src": "media/just-gotta-clear-my-head.m4a",
+    "title": "just gotta clear my head"
+  }
 }

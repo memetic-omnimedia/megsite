@@ -296,6 +296,37 @@ html.has-overlay .hud {
   gap: 0.75rem;
   text-align: right;
 }
+/* Sound toggle + a quiet "now playing" credit in the same two voices as the artist name. */
+.sound {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.now-playing {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7em;
+  white-space: nowrap;
+  animation: now-playing-in 1.2s ease both;
+}
+.now-playing__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.now-playing__title {
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+@keyframes now-playing-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
 .clock {
   margin: 0;
   color: var(--ink-soft);
@@ -659,6 +690,13 @@ html.has-overlay .hud {
 }
 
 @media (max-width: 560px) {
+  .sound {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+  .now-playing__label {
+    display: none;
+  }
   .hud--top {
     flex-direction: column;
     gap: 0.25rem;
@@ -684,6 +722,9 @@ html.has-overlay .hud {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .now-playing {
+    animation: none !important;
+  }
   .artist__vis,
   .artist__lead,
   .artist__rest {

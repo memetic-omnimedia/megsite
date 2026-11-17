@@ -376,22 +376,77 @@ function renderArtist(el: HTMLElement) {
   }
 }
 
+/**
+ * Background track: an Unmute toggle that fades the song in and out. Nothing downloads until the
+ * first press. Fades run through a Web Audio gain node because iOS ignores `audio.volume`.
+ */
 function setupAudio() {
-  const src = content.audio && filled(content.audio.src) ? content.audio.src : null;
+  const cfg = content.audio;
+  const src = cfg && filled(cfg.src) ? cfg.src : null;
   if (!src) return;
   const btn = document.getElementById('unmute') as HTMLButtonElement;
+  const credit = document.getElementById('now-playing')!;
   btn.hidden = false;
+  if (filled(cfg!.title)) {
+    credit.querySelector('.now-playing__title')!.textContent = cfg!.title;
+    btn.setAttribute('aria-describedby', 'now-playing');
+  }
+
+  const FADE_IN = 1.6;
+  const FADE_OUT = 0.9;
   let audio: HTMLAudioElement | null = null;
+  let ctx: AudioContext | null = null;
+  let gain: GainNode | null = null;
+  let on = false;
+  let pauseTimer = 0;
+
+  const ramp = (to: number, secs: number) => {
+    if (gain && ctx) {
+      const now = ctx.currentTime;
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setValueAtTime(gain.gain.value, now);
+      gain.gain.linearRampToValueAtTime(to, now + secs);
+    } else if (audio) audio.volume = to; // no Web Audio: jump straight to the level
+  };
+
+  const render = () => {
+    btn.textContent = on ? 'Mute' : 'Unmute';
+    btn.setAttribute('aria-pressed', String(on));
+    credit.hidden = !(on && filled(cfg!.title));
+  };
+
   btn.addEventListener('click', () => {
     if (!audio) {
       audio = new Audio(asset(src));
       audio.loop = true;
+      audio.preload = 'auto';
+      const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (AC) {
+        try {
+          ctx = new AC();
+          gain = ctx.createGain();
+          gain.gain.value = 0;
+          ctx.createMediaElementSource(audio).connect(gain).connect(ctx.destination);
+        } catch {
+          ctx = null;
+          gain = null;
+        }
+      }
     }
-    const on = audio.paused;
-    if (on) audio.play().catch(() => {});
-    else audio.pause();
-    btn.textContent = on ? 'Mute' : 'Unmute';
-    btn.setAttribute('aria-pressed', String(on));
+    on = !on;
+    clearTimeout(pauseTimer);
+    if (on) {
+      ctx?.resume();
+      audio.play().catch(() => {
+        on = false;
+        render();
+      });
+      ramp(1, reduced ? 0.2 : FADE_IN);
+    } else {
+      ramp(0, reduced ? 0.15 : FADE_OUT);
+      pauseTimer = window.setTimeout(() => audio!.pause(), (reduced ? 0.15 : FADE_OUT) * 1000 + 50);
+    }
+    render();
   });
 }
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.5.0 (2026-11-16)
+
+- Background audio: Meggie's "just gotta clear my head" (30s, AAC 192k encoded from the original WAV)
+  plays behind an Unmute toggle. Nothing loads until it's pressed.
+- The toggle now fades the song in (~1.6s) and out (~0.9s) via a Web Audio gain node, which also works
+  on iOS where `audio.volume` is ignored.
+- Optional `audio.title` in `content.json`, shown as a soft "Now playing" credit while the song plays
+  (title only on narrow phones, with the button first so it fits).
+
 ## 0.4.0 (2026-11-15)
 
 - Artist name split into two voices of the same face: the first word as a quiet spaced uppercase label

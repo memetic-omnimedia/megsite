@@ -79,16 +79,26 @@ If the build fails after an edit, the Actions tab on GitHub will show the error.
 Switching slides plays a shader dissolve between the two videos. Visitors on phones, with
 Data Saver on, or on 2G/3G get the 720p file; everyone else gets 1080p. Only one is downloaded.
 
-## Adding background audio
+## Background audio
 
-Put an audio file (e.g. `mix.mp3`) in `public/media/` and set:
+The site currently plays **"just gotta clear my head"** (`public/media/just-gotta-clear-my-head.m4a`).
+In `content.json`:
 
 ```json
-"audio": { "src": "media/mix.mp3" }
+"audio": { "src": "media/just-gotta-clear-my-head.m4a", "title": "just gotta clear my head" }
 ```
 
-An **Unmute** button appears bottom-right. The audio only downloads when someone presses it, and
-it loops on its own (it isn't synced to the video). Set it back to `null` to remove the button.
+- An **Unmute** button sits bottom-right. Nothing downloads until someone presses it; the song then
+  fades in, loops, and fades out again on **Mute**.
+- `title` is optional. While the song plays it shows as a small "Now playing" credit next to the button.
+- Set `"audio": null` to remove the button entirely.
+
+To swap in a new track, convert the original WAV to AAC (≈1/7 the size, plays in every current browser),
+put it in `public/media/`, and point `src` at it:
+
+```bash
+ffmpeg -i "input.wav" -vn -c:a aac -b:a 192k -movflags +faststart public/media/my-track.m4a
+```
 
 ## Photos
 

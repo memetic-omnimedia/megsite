@@ -26,7 +26,8 @@ export interface Content {
   events?: EventItem[];
   /** `e` is the encoded address produced by the site-content plugin in vite.config.ts. */
   contact?: { e?: string[] };
-  audio?: { src: string } | null;
+  /** Optional looping background track. `title` is shown as a small credit while it plays. */
+  audio?: { src: string; title?: string } | null;
 }
 
 export const content = raw as unknown as Content;
